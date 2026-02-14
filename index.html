@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xX_Ganglija_Xx - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+</head>
+
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h1 class="glitter-title">✿ xX_Ganglija_Xx World ✿</h1>
+                <p class="login-subtitle">★ Enter the Matrix of Chaos ★</p>
+            </div>
+
+            <div class="login-form">
+                <div class="form-group">
+                    <label for="username">★ Username:</label>
+                    <input type="text" id="username" placeholder="Enter ur name..." autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">★ Password:</label>
+                    <input type="password" id="password" placeholder="Enter password...">
+                </div>
+
+                <button id="login-btn" class="login-btn">
+                    ✨ ENTER ✨
+                </button>
+
+                <p class="login-hint">Hint: Use username "ganglija" or any name + password "rawr" XD</p>
+            </div>
+
+            <div class="login-decorations">
+                <span class="floating-emoji">💖</span>
+                <span class="floating-emoji">⭐</span>
+                <span class="floating-emoji">💅</span>
+                <span class="floating-emoji">🎵</span>
+                <span class="floating-emoji">✨</span>
+                <span class="floating-emoji">🦋</span>
+            </div>
+        </div>
+
+        <div class="login-footer">
+            <p>© 2007 xX_Ganglija_Xx.piczo | Powered by Glitter & Dreams</p>
+        </div>
+    </div>
+
+    <!-- Sound effects -->
+    <audio id="login-sound" src="data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU"></audio>
+
+    <script src="script.js"></script>
+    <script>
+        // Login page specific logic
+        document.getElementById('login-btn').addEventListener('click', function () {
+            const username = document.getElementById('username').value.trim().toLowerCase();
+            const password = document.getElementById('password').value.trim().toLowerCase();
+
+            // Accept "ganglija" as username OR "rawr" as password
+            if (username === 'ganglija' || password === 'rawr' || (username && password)) {
+                // Save login state
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('username', username || 'Ganglija');
+
+                // Play fun sound and redirect
+                alert('♥ WELCOME TO Xx_GANGLIJA_XX WORLD!! ♥\n\nPrepare for maximum glitter and chaos!! rawr XD');
+                window.location.href = 'home.html';
+            } else {
+                alert('✿ Please enter a username and password!! ✿');
+            }
+        });
+
+        // Allow Enter key to submit
+        document.getElementById('password').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('login-btn').click();
+            }
+        });
+    </script>
+</body>
+
+</html>

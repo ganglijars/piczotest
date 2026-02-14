@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xX_Ganglija_Xx - Guestbook | Scene Kid 4 Life</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+</head>
+
+<body class="profile-page">
+    <div id="loading-overlay">
+        <div class="loader-content">
+            <h1 class="glitter-text">LOADING GUESTBOOK...</h1>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sparkle-layer"></div>
+    <div class="floating-hearts" id="floating-hearts"></div>
+
+    <div class="scrolling-ticker">
+        <marquee scrollamount="4">
+            💬 SIGN MY GUESTBOOK!! 💬 DON'T BE SHY!! 💬 RAWRAWRAW 💬
+        </marquee>
+    </div>
+
+    <header class="main-banner">
+        <div class="banner-content">
+            <h1 class="marquee-name rainbow-text">xX_Ganglija_Xx</h1>
+            <p class="subtitle">14 | Serbia | <span>Guestbook</span> <span class="flag">🇷🇸</span></p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="home.html" class="nav-link">✿ Home ✿</a>
+        <a href="friends.html" class="nav-link">♥ Friends ♥</a>
+        <a href="photos.html" class="nav-link">📸 Photos 📸</a>
+        <a href="guestbook.html" class="nav-link active">💬 Guestbook 💬</a>
+        <a href="about.html" class="nav-link">ℹ️ About ℹ️</a>
+        <a href="#" id="logout-btn" class="nav-link logout">🚪 Logout</a>
+    </nav>
+
+    <div class="layout-wrapper">
+        <aside class="left-sidebar">
+            <div class="content-box">
+                <h3 class="section-title">💝 Guestbook Rules</h3>
+                <p style="font-size: 0.85rem;">1. Be nice!!<br>2. No spam!!<br>3. Type "rawr" for a surprise XD<br>4.
+                    PLS SIGN!!</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section class="content-box">
+                <h2 class="section-title">💬 Sign My Guestbook 💬</h2>
+                <form id="guestbook-form">
+                    <div class="form-group">
+                        <label>Your Name:</label>
+                        <input type="text" id="guest-name" placeholder="Enter your name..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message:</label>
+                        <textarea id="guest-message" placeholder="Leave a message! (type rawr for a surprise)..."
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="glitter-btn">✨ SIGN GUESTBOOK ✨</button>
+                </form>
+            </section>
+
+            <section class="content-box">
+                <h2 class="section-title">📜 Recent Comments 📜</h2>
+                <div id="comments-list">
+                    <div class="comment">
+                        <span class="comment-author">Minaa_Xx</span> <span class="comment-time">(Feb 14, 2007 10:00
+                            AM)</span>
+                        <p>girl ur profile is SOOOO pretty!! i love the new layout!! rawr XD</p>
+                    </div>
+                    <div class="comment">
+                        <span class="comment-author">Dark_Emo_Boy</span> <span class="comment-time">(Feb 13, 2007 3:45
+                            PM)</span>
+                        <p>nice new layout!! we should talk on AIM sometime!!</p>
+                    </div>
+                    <div class="comment">
+                        <span class="comment-author">xX_Princess_Xx</span> <span class="comment-time">(Feb 12, 2007 8:20
+                            PM)</span>
+                        <p>hey bestie!! miss u!! we need to hang out soon!!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="content-box">
+                <h3 class="section-title">📊 Guestbook Stats</h3>
+                <p><strong>Total Entries:</strong> <span id="guestbook-count">42</span></p>
+                <p><strong>Latest:</strong> Today</p>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Guestbook page specific
+        const guestForm = document.getElementById('guestbook-form');
+        const guestList = document.getElementById('comments-list');
+
+        function loadComments() {
+            const comments = JSON.parse(localStorage.getItem('piczo_comments') || '[]');
+            const existingComments = Array.from(guestList.querySelectorAll('.comment'));
+
+            let html = '';
+            comments.forEach(c => {
+                html += `
+                    <div class="comment">
+                        <span class="comment-author">${c.name}</span> <span class="comment-time">(${c.time})</span>
+                        <p>${c.message}</p>
+                    </div>
+                `;
+            });
+
+            // Keep existing fake comments + add user comments
+            guestList.innerHTML = html + existingComments.map(c => c.outerHTML).join('');
+        }
+
+        guestForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('guest-name').value;
+            const message = document.getElementById('guest-message').value;
+
+            if (message.toLowerCase().includes('rawr')) {
+                alert('RAWR XD !! Dinosaur love!! 🦕');
+            }
+
+            const comments = JSON.parse(localStorage.getItem('piczo_comments') || '[]');
+            comments.unshift({
+                name: name,
+                message: message,
+                time: new Date().toLocaleString()
+            });
+            localStorage.setItem('piczo_comments', JSON.stringify(comments.slice(0, 20)));
+            loadComments();
+            guestForm.reset();
+            alert('Thanks for signing my guestbook!! 💖');
+        });
+
+        loadComments();
+    </script>
+</body>
+
+</html>
